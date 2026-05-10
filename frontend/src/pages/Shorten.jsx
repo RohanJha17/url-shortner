@@ -1,0 +1,94 @@
+import React, { useState } from 'react'
+import { toast } from 'react-toastify'
+
+const Shorten = () => {
+    const [url, seturl] = useState("")
+    const [shorturl, setshorturl] = useState("")
+    const [generated, setGenerated] = useState("")
+    const [loading, setLoading] = useState(false)
+
+    const generate = () => {
+        if (!url) {
+            toast.error("Please enter a valid URL");
+            return;
+        }
+
+        setLoading(true);
+        const myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+
+        const raw = JSON.stringify({
+            "url": url,
+            "shorturl": shorturl
+        });
+
+        const requestOptions = {
+            method: "POST",
+            headers: myHeaders,
+            body: raw,
+            redirect: "follow"
+        };
+
+        fetch(`${import.meta.env.VITE_API_URL}/api/generate`, requestOptions)
+            .then((response) => response.json())
+            .then((result) => {
+                if(result.success) {
+                    setGenerated(`${window.location.origin}/${result.shorturl || shorturl}`)
+                    seturl("")   
+                    setshorturl("")
+                    toast.success(result.message)
+                } else {
+                    toast.error(result.message)
+                }
+            })
+            .catch((error) => {
+                console.error(error)
+                toast.error("An error occurred while generating short URL")
+            })
+            .finally(() => setLoading(false));
+    }
+
+
+    return (
+      <div className="min-h-[82.8vh] pt-28">
+        <div className="mx-auto max-w-xl bg-purple-200 p-8 rounded-xl flex flex-col gap-5 mt-12">
+          <h1 className="text-center font-bold text-2xl">
+            Generate your Short URLs
+          </h1>
+
+          <input
+            value={url}
+            onChange={(e) => seturl(e.target.value)}
+            className="px-4 py-2 rounded-md border focus:outline-purple-600 bg-white"
+            placeholder="Enter your URL"
+          />
+
+          <input
+            value={shorturl}
+            onChange={(e) => setshorturl(e.target.value)}
+            className="px-4 py-2 rounded-md border focus:outline-purple-600 bg-white"
+            placeholder="Enter your preferred short URL text"
+          />
+
+          <button
+            disabled={loading}
+            onClick={generate}
+            className="bg-purple-500 text-white rounded-md py-2 cursor-pointer font-semibold disabled:bg-purple-300"
+          >
+            {loading ? "Generating..." : "Generate"}
+          </button>
+
+          {generated && (
+            <>
+              <span className="font-bold text-lg">Your Link</span>
+              <a href={generated} target="_blank" rel="noopener noreferrer" className="underline text-blue-700">
+                {generated}
+              </a>
+            </>
+          )}
+        </div>
+      </div>
+    )
+}
+
+export default Shorten
