@@ -5,7 +5,7 @@ Shrinkly is a modern, fast, and privacy-focused URL shortener built using **Reac
 ## 📸 Screenshots
 
 ### 🖥️ App Interface
-![App Interface](./public/site-image.png)
+![App Interface](./frontend/public/site-image.png)
 
 ## ✨ Features
 
