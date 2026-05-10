@@ -1,6 +1,6 @@
-## 🔗 BitLinks – URL Shortener
+## 🔗 Shrinkly – URL Shortener
 
-BitLinks is a modern, fast, and privacy-focused URL shortener built using **Next.js (App Router)** and **Tailwind CSS**. It allows users to generate short URLs instantly, with either custom aliases or auto-generated ones. It safely stores and dynamically redirects URLs using server-side routing, without requiring a login or tracking private user data.
+Shrinkly is a modern, fast, and privacy-focused URL shortener built using **React (Vite)**, **Express.js**, and **Tailwind CSS**. It allows users to generate short URLs instantly, with either custom aliases or auto-generated ones. It safely stores and dynamically redirects URLs using server-side routing, without requiring a login or tracking private user data.
 
 ## 📸 Screenshots
 
@@ -38,7 +38,7 @@ BitLinks is a modern, fast, and privacy-focused URL shortener built using **Next
 1. User submits a long URL with an optional preferred alias.
 2. The API validates the URL and ensures the alias doesn't already exist.
 3. The short URL and original URL are saved in MongoDB.
-4. When the short URL is accessed (e.g., `bitlinks.vercel.app/alias`), the Next.js dynamic route `/[shorturl]` intercepts the request.
+4. When the short URL is accessed (e.g., `shrinkly.vercel.app/alias`), the React frontend route `/:shorturl` intercepts the request and retrieves the long URL from the backend.
 5. The server fetches the original URL and redirects the user automatically.
 
 ## 👨‍💻 Developer
