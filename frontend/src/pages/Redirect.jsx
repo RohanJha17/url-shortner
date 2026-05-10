@@ -8,7 +8,8 @@ const Redirect = () => {
     useEffect(() => {
         const fetchUrl = async () => {
             try {
-                const response = await fetch(`${import.meta.env.VITE_API_URL}/api/url/${shorturl}`);
+                const apiUrl = import.meta.env.VITE_API_URL.replace(/\/$/, "");
+                const response = await fetch(`${apiUrl}/api/url/${shorturl}`);
                 const data = await response.json();
                 
                 if (data.success && data.url) {

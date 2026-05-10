@@ -29,7 +29,8 @@ const Shorten = () => {
             redirect: "follow"
         };
 
-        fetch(`${import.meta.env.VITE_API_URL}/api/generate`, requestOptions)
+        const apiUrl = import.meta.env.VITE_API_URL.replace(/\/$/, "");
+        fetch(`${apiUrl}/api/generate`, requestOptions)
             .then((response) => response.json())
             .then((result) => {
                 if(result.success) {
