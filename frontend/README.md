@@ -1,53 +1,57 @@
-# Shrinkly - Frontend Configuration
+# Shrinkly - Front-End Application (Week 2 Task)
 
-This directory contains the React.js client for the Shrinkly URL Shortener application. It is bootstrapped with [Vite](https://vitejs.dev/) for blazing-fast development and optimized production builds.
+This directory contains the front-end source code for **Shrinkly**, a modern, blazing-fast URL shortener. This front-end was developed to interact seamlessly with underlying back-end API services, providing an intuitive, responsive, and accessible user experience.
 
-## 🛠️ Technology Stack
-- **React 18**
-- **Vite** (Build Tool & Dev Server)
-- **React Router DOM** (Client-side routing)
-- **Tailwind CSS v4** (Styling)
-- **React Toastify** (Interactive notifications)
+## 📝 Development Process
 
-## 📁 Folder Structure
+The development of the Shrinkly front-end followed a structured, iterative approach:
+1. **Requirement Analysis & Wireframing:** Designed the core user flows mapping out the Landing Page, URL Generation Dashboard, and informational views.
+2. **Environment Setup:** Initialized the project using Vite for React to ensure optimal build times and Hot Module Replacement (HMR).
+3. **Component Architecture:** Abstracted the UI into modular, reusable React components (e.g., `Navbar`, `Footer`) to maintain DRY principles.
+4. **Routing Implementation:** Configured Client-Side Routing using React Router DOM to seamlessly connect the interconnected views without page reloads.
+5. **Styling & Responsiveness:** Implemented Tailwind CSS to build a mobile-first, responsive layout that adapts to all screen sizes.
+6. **API Integration & State Management:** Utilized React Hooks (`useState`, `useEffect`) to manage application state and asynchronously fetch data from the back-end endpoints.
+7. **Usability Testing:** Incorporated interactive elements like hover states, loading spinners, and toast notifications (`react-toastify`) to simulate and refine user interactions.
 
-- `/public` - Static assets like SVG icons, favicons, and images.
-- `/src`
-  - `/components` - Reusable UI components (e.g., `Navbar.jsx`, `Footer.jsx`).
-  - `/pages` - Core application views:
-    - `Home.jsx` - The landing page explaining Shrinkly.
-    - `About.jsx` - Information about the app and its privacy-first focus.
-    - `Contact.jsx` - User feedback/inquiry form.
-    - `Shorten.jsx` - The main interface to generate short URLs.
-    - `Redirect.jsx` - A dynamic route component that fetches the destination URL and redirects the user.
-  - `App.jsx` - Main application wrapper and React Router configuration.
-  - `index.css` - Global Tailwind CSS directives.
+## 🎨 Views & Navigation
 
-## 🚀 How Routing Works (Client-Side vs Server-Side)
+The application features over three distinct, interconnected views:
+- **Landing Page (`/`):** The introductory page explaining the value proposition of Shrinkly with a direct Call-To-Action.
+- **Shorten Dashboard (`/shorten`):** The primary interactive view where users input long URLs and optional aliases to generate shortened links.
+- **Detail Views (`/about` & `/contact`):** Dedicated informational pages outlining the privacy focus of the app and providing a feedback form.
+- **Dynamic Redirection (`/:shorturl`):** A programmatic view that intercepts short URLs and dynamically redirects users based on back-end database lookups.
 
-This frontend uses **React Router** to handle navigation.
-- Standard routes like `/`, `/about`, and `/shorten` load their respective page components.
-- The dynamic route `/:shorturl` is caught by the `Redirect.jsx` component. When a user visits `shrinkly.vercel.app/myCustomLink`, the `Redirect` component mounts, sends an API request to the Node.js backend using the `myCustomLink` parameter, and uses `window.location.href` to instantly forward the user to the retrieved long URL.
+## 🧱 Design Patterns & Libraries
 
-*Note: For this Single Page Application (SPA) routing to work correctly when deployed on Vercel, a `vercel.json` file is included to rewrite all incoming traffic to `index.html`.*
+- **Component-Based Architecture:** The UI is split into isolated, single-responsibility React components.
+- **Declarative UI:** Leveraging React's declarative nature to dynamically render UI based on state changes (e.g., hiding/showing the generated link).
+- **Vite:** Chosen over Create-React-App for superior development performance and optimized ESBuild compilation.
+- **Tailwind CSS v4:** A utility-first CSS framework used to apply styling directly within JSX, accelerating layout design while ensuring consistency.
+- **React Router DOM:** Used to implement Single Page Application (SPA) routing patterns.
+- **React Toastify:** Integrated for accessible, non-blocking user feedback (success/error popups).
 
-## ⚙️ Environment Variables
+## 🚀 How to Run the Application Locally
 
-To run this frontend locally or deploy it, you must configure the following environment variable in a `.env` file inside this `/frontend` directory:
+Follow these steps to run the front-end environment on your local machine:
 
+**1. Install Dependencies**
+Navigate to this `frontend/` directory in your terminal and install the required Node modules:
+```bash
+npm install
+```
+
+**2. Configure Environment Variables**
+Create a `.env` file in the root of the `frontend/` directory and add the back-end API URL:
 ```env
 VITE_API_URL=http://localhost:5000
 ```
-*Note: Ensure there is no trailing slash at the end of the URL. When deploying to production (e.g., Vercel), set this variable to your live backend API URL.*
+*(Ensure your back-end server is running on port 5000 for local testing)*
 
-## 🏃‍♂️ Available Scripts
+**3. Start the Development Server**
+Run the Vite development server:
+```bash
+npm run dev
+```
 
-In the project directory, you can run:
-
-### `npm run dev`
-Runs the app in development mode.
-Open [http://localhost:5173](http://localhost:5173) to view it in the browser. The page will reload if you make edits.
-
-### `npm run build`
-Builds the app for production to the `dist` folder.
-It correctly bundles React in production mode and optimizes the build for the best performance.
+**4. View the App**
+Open your browser and navigate to the URL provided in the terminal (usually `http://localhost:5173`). The application will hot-reload automatically as you make changes to the code.
